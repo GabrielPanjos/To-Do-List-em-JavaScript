@@ -26,7 +26,7 @@ section {
 
 #criarTarefa {
     display: flex;
-    height: 600px;
+    height: 700px;
     width: 800px;
 }
 
@@ -38,7 +38,7 @@ section {
 input {
     background-color: #DFE3EE;
     height: 60px;
-    width: 500px;
+    width: 600px;
     border-radius: 50px;
     border: none;
     padding-left: 40px;
@@ -90,4 +90,15 @@ input::placeholder {
     height: 250px;
     padding: 0 0 160px 40px;
     border-radius: 25px;
+}
+
+#criarTarefa>div>div>button {
+    margin: 40px auto 0 auto;
+    height: 60px;
+    width: 500px;
+    background-color: #363753;
+    border: none;
+    color: #FEFEFE;
+    font-weight: 600;
+    border-radius: 50px;
 }
