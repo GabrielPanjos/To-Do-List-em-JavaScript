@@ -31,17 +31,57 @@ section {
 }
 
 #listaDeTarefas {
+    display: flex;
     height: auto;
     width: 800px;
 }
 
 input {
+    color: #363753;
+    font-weight: 600;
+    font-size: 14px;
     background-color: #DFE3EE;
     height: 60px;
     width: 600px;
     border-radius: 50px;
     border: none;
     padding-left: 40px;
+}
+
+textarea {
+    color: #363753;
+    font-weight: 600;
+    font-size: 14px;
+    background-color: #DFE3EE;
+    height: 60px;
+    width: 600px;
+    border-radius: 50px;
+    border: none;
+    resize: none;
+}
+
+#listaDeTarefas>div {
+    margin: 30px auto 0 auto;
+}
+
+#listaDeTarefas>div>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#listaDeTarefas>div>div>div {
+    display: flex;
+    justify-content: center;
+}
+
+#listaDeTarefas>div>div>div>h1 {
+    margin-bottom: 15px;
+}
+
+#listaDeTarefas>div>div>div>p {
+    margin-bottom: 30px;
 }
 
 #criarTarefa>div {
@@ -74,6 +114,14 @@ h1 {
     font-size: 50px;
 }
 
+h1:hover {
+    cursor: default;
+}
+
+p:hover {
+    cursor: default;
+}
+
 p {
     color: #363753;
     font-weight: 600;
@@ -86,10 +134,20 @@ input::placeholder {
     font-size: 14px;
 }
 
+textarea::placeholder {
+    color: #363753;
+    font-weight: 600;
+    font-size: 14px;
+}
+
 #descricao {
     height: 250px;
-    padding: 0 0 160px 40px;
+    padding: 30px 40px 160px 40px;
     border-radius: 25px;
+}
+
+#descricao::-webkit-scrollbar {
+    opacity: 0%;
 }
 
 #criarTarefa>div>div>button {
@@ -101,4 +159,14 @@ input::placeholder {
     color: #FEFEFE;
     font-weight: 600;
     border-radius: 50px;
+    transition: background-color 0.15s ease;
+}
+
+#criarTarefa>div>div>button:hover {
+    background-color: #4a4b64;
+    cursor: pointer;
+}
+
+#criarTarefa>div>div>button:active {
+    background-color: #2b2c40;
 }
