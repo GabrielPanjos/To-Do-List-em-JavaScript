@@ -170,3 +170,54 @@ textarea::placeholder {
 #criarTarefa>div>div>button:active {
     background-color: #2b2c40;
 }
+
+ul {
+    list-style-type: none;
+}
+
+/* Tarefa geral */
+.tarefa {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #DFE3EE;
+    border-radius: 25px;
+    width: 570px;
+    height: 100px;
+    padding: 0 40px;
+    margin-bottom: 15px;
+    color: #363753;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* Oculta o checkbox real */
+.checkbox-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+/* Visual do checkbox */
+.checkbox {
+    width: 30px;
+    height: 30px;
+    background-color: #FEFEFE;
+    border: 2.5px solid #363753;
+    display: inline-block;
+    border-radius: 8px;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Quando estiver checado */
+.checkbox-wrapper input:checked+.checkbox {
+    background-color: #363753;
+}
+
+.checkbox-wrapper input:checked+.checkbox::after {
+    content: '✓';
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 3px;
+    left: 7px;
+}
