@@ -5,6 +5,13 @@ class Tarefa {
     }
 }
 
+
+// Variável lista de tarefas para guardar as tarefas
+let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+// Armazenando a lista de tarefas no local storage
+localStorage.setItem("tarefas", JSON.stringify(tarefas));
+
+
 // Função para a criação de tarefa
 const criarTarefa = function () {
 
@@ -78,20 +85,28 @@ const adicionarTarefa = function (titulo, descricao = "") {
     // Criando novo objeto "Tarefa"
     let tarefa = new Tarefa(titulo, descricao)
 
-    // Guardando nova tarefa em string no localStorage
-    localStorage.setItem(titulo, JSON.stringify(tarefa));
+    // Adicionando tarefa na lista de tarefas
+    tarefas.push(tarefa)
+    // Atualizando lista de tarefas no localstorage
+    localStorage.setItem("tarefas", JSON.stringify(tarefas));
 
     // Variaveis da tarefa salva
     const tarefaSalvaObject = JSON.parse(localStorage.getItem(titulo))
-    const tarefaSalvaString = localStorage.getItem(titulo)
+    const tarefaSalvaString = JSON.parse(localStorage.getItem(descricao))
 
     // Variavel para separar título e descrição
     const tituloTarefa = function () { return tarefaSalvaObject.titulo }
     const descricaoTarefa = function () { return tarefaSalvaObject.descricao }
 
+    // Chamando função "exibirTarefa"
+    exibirTarefa(tituloTarefa(), descricaoTarefa())
 
+}
 
-    // Variaveis para exibir a tarefa no front-end
+// Função para a exibição da tarefa
+const exibirTarefa = function (titulo, descricao) {
+
+    // Criando variaveis para exibir a tarefa no front-end
     const lista = document.querySelector('ul')
     const li = document.createElement('li')
     const divTarefa = document.createElement('div')
@@ -100,21 +115,38 @@ const adicionarTarefa = function (titulo, descricao = "") {
     const spanCheckbox = document.createElement('span')
     const label = document.createElement('label')
 
+    // Colocando tipo "checkbox" e adicionando classe no input "checkbox"
     checkbox.type = 'checkbox';
     spanCheckbox.classList.add('checkbox')
 
+    // Adicionando classe para label e divTarefa
     label.classList.add('checkbox-wrapper')
-
     divTarefa.classList.add('tarefa')
 
-    divTitulo.textContent = tituloTarefa()
-    lista.appendChild(li)
+    // Exibindo título da tarefa
+    divTitulo.textContent = titulo
 
+    // Organizando HTML
+    lista.appendChild(li)
     li.appendChild(divTarefa)
     divTarefa.appendChild(divTitulo)
     divTarefa.appendChild(label)
     label.appendChild(checkbox)
     label.appendChild(spanCheckbox)
+
+}
+
+// Função para atualizar o site toda vez que ser iniciado ou recarregado
+const atualizarSite = function () {
+
+    tarefas.forEach(tarefa => {
+        exibirTarefa(tarefa.titulo, tarefa.descricao)
+    })
+
+}
+
+// Função para remover tarefa
+const removerTarefa = function () {
 
 }
 
@@ -124,3 +156,5 @@ document.getElementById('titulo').addEventListener('click', function () {
 });
 
 document.getElementById('addButton').addEventListener('click', criarTarefa);
+
+atualizarSite()
