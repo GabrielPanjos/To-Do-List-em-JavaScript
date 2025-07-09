@@ -162,12 +162,14 @@ textarea::placeholder {
     transition: background-color 0.15s ease;
 }
 
-#criarTarefa>div>div>button:hover {
+#criarTarefa>div>div>button:hover,
+.tarefa>button:hover {
     background-color: #4a4b64;
     cursor: pointer;
 }
 
-#criarTarefa>div>div>button:active {
+#criarTarefa>div>div>button:active,
+.tarefa>button:active {
     background-color: #2b2c40;
 }
 
@@ -193,17 +195,12 @@ ul {
 
 .tarefa>button {
     font-weight: 600;
-    font-size: 14px;
     color: #FEFEFE;
     border-radius: 0 25px 25px 0;
     height: 100%;
     width: 140px;
     border: none;
     background-color: #363753;
-}
-
-.tarefa>button:hover {
-    cursor: pointer;
 }
 
 .tarefa>div>div {

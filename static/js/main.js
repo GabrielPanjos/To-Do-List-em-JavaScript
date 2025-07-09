@@ -105,12 +105,12 @@ const adicionarTarefa = function (titulo, descricao = "") {
     localStorage.setItem("tarefas", JSON.stringify(tarefas));
 
     // Variaveis da tarefa salva
-    const tarefaSalvaObject = JSON.parse(localStorage.getItem(titulo))
-    const tarefaSalvaString = JSON.parse(localStorage.getItem(descricao))
+    const tarefaSalvaTitulo = JSON.parse(localStorage.getItem(titulo))
+    const tarefaSalvaDescricao = JSON.parse(localStorage.getItem(descricao))
 
     // Variavel para separar título e descrição
-    const tituloTarefa = function () { return tarefaSalvaObject.titulo }
-    const descricaoTarefa = function () { return tarefaSalvaObject.descricao }
+    const tituloTarefa = function () { return tarefaSalvaTitulo.titulo }
+    const descricaoTarefa = function () { return tarefaSalvaDescricao.descricao }
 
     // Chamando função "exibirTarefa"
     exibirTarefa(tituloTarefa(), descricaoTarefa())
@@ -119,6 +119,8 @@ const adicionarTarefa = function (titulo, descricao = "") {
 
 // Função para a exibição da tarefa
 const exibirTarefa = function (titulo, descricao) {
+
+    console.log(tarefas)
 
     // Criando variaveis para exibir a tarefa no front-end
     const lista = document.querySelector('ul')
@@ -144,6 +146,8 @@ const exibirTarefa = function (titulo, descricao) {
 
 
     btnRemover.textContent = "Deletar"
+    btnRemover.id = titulo
+    btnRemover.addEventListener('click', () => removerTarefa(titulo));
 
     // Organizando HTML
     lista.appendChild(li)
@@ -160,17 +164,26 @@ const exibirTarefa = function (titulo, descricao) {
 // Função para atualizar o site toda vez que ser iniciado ou recarregado
 const atualizarSite = function () {
 
+    document.querySelector('ul').innerHTML = ""
+
     tarefas.forEach(tarefa => {
         exibirTarefa(tarefa.titulo, tarefa.descricao)
     })
 
+    localStorage.setItem("tarefas", JSON.stringify(tarefas));
+
 }
 
 // Função para remover tarefa
-const removerTarefa = function () {
+const removerTarefa = function (index) {
 
+    const tarefa = tarefas.findIndex(tarefa => tarefa.titulo == index)
+
+    tarefas.splice(tarefa, 1)
+
+
+    atualizarSite()
 }
-
 
 
 
