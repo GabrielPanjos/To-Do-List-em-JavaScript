@@ -2,6 +2,7 @@ class Tarefa {
     constructor(titulo, descricao) {
         this.titulo = titulo
         this.descricao = descricao
+        this.concluido = false
     }
 }
 
@@ -104,23 +105,13 @@ const adicionarTarefa = function (titulo, descricao = "") {
     // Atualizando lista de tarefas no localstorage
     localStorage.setItem("tarefas", JSON.stringify(tarefas));
 
-    // Variaveis da tarefa salva
-    const tarefaSalvaTitulo = JSON.parse(localStorage.getItem(titulo))
-    const tarefaSalvaDescricao = JSON.parse(localStorage.getItem(descricao))
-
-    // Variavel para separar título e descrição
-    const tituloTarefa = function () { return tarefaSalvaTitulo.titulo }
-    const descricaoTarefa = function () { return tarefaSalvaDescricao.descricao }
-
     // Chamando função "exibirTarefa"
-    exibirTarefa(tituloTarefa(), descricaoTarefa())
+    exibirTarefa(titulo, descricao);
 
 }
 
 // Função para a exibição da tarefa
 const exibirTarefa = function (titulo, descricao) {
-
-    console.log(tarefas)
 
     // Criando variaveis para exibir a tarefa no front-end
     const lista = document.querySelector('ul')
@@ -174,17 +165,35 @@ const atualizarSite = function () {
 
 }
 
-// Função para remover tarefa
 const removerTarefa = function (index) {
+    Swal.fire({
+        title: 'Tem certeza?',
+        text: "Você realmente deseja excluir esta tarefa?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#363753',
+        cancelButtonColor: '#aaa',
+        confirmButtonText: 'Sim, excluir',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const tarefa = tarefas.findIndex(tarefa => tarefa.titulo == index);
+            tarefas.splice(tarefa, 1);
+            atualizarSite();
 
-    const tarefa = tarefas.findIndex(tarefa => tarefa.titulo == index)
-
-    tarefas.splice(tarefa, 1)
-
-
-    atualizarSite()
+            Swal.fire(
+                'Excluída!',
+                'A tarefa foi removida com sucesso.',
+                'success'
+            );
+        }
+        // Se quiser, pode adicionar um feedback se o usuário cancelar:
+        // else {
+        //   Swal.fire('Cancelado', 'A tarefa não foi excluída.', 'info');
+        // }
+    });
 }
-
 
 
 
