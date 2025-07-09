@@ -183,12 +183,41 @@ ul {
     background-color: #DFE3EE;
     border-radius: 25px;
     width: 570px;
-    height: 100px;
-    padding: 0 40px;
+    height: 90px;
+    padding: 0 0 0 40px;
     margin-bottom: 15px;
     color: #363753;
     font-weight: 600;
     font-size: 16px;
+}
+
+.tarefa>button {
+    font-weight: 600;
+    font-size: 14px;
+    color: #FEFEFE;
+    border-radius: 0 25px 25px 0;
+    height: 100%;
+    width: 140px;
+    border: none;
+    background-color: #363753;
+}
+
+.tarefa>button:hover {
+    cursor: pointer;
+}
+
+.tarefa>div>div {
+    margin-left: 30px;
+}
+
+.tarefa>div {
+    align-items: center;
+    display: flex;
+}
+
+.tarefa>div>label {
+    height: 30px;
+    width: 30px;
 }
 
 /* Oculta o checkbox real */
@@ -203,7 +232,7 @@ ul {
     background-color: #FEFEFE;
     border: 2.5px solid #363753;
     display: inline-block;
-    border-radius: 8px;
+    border-radius: 100px;
     position: relative;
     cursor: pointer;
 }

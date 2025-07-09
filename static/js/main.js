@@ -31,6 +31,20 @@ const criarTarefa = function () {
 
     }
 
+    // Caso tentar criar tarefa com título que já está em uso
+    else if (tarefas.some(tarefa => tarefa.titulo === document.getElementById('titulo').value)) {
+
+        Swal.fire({
+            title: 'Tarefa duplicada!',
+            text: 'Você já criou uma tarefa com esse título.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+
+        // Deixando borda do input vermelho
+        document.getElementById('titulo').style.border = "2px solid rgb(255, 112, 112)";
+    }
+
     // Caso tentar criar tarefa sem descrição
     else if (document.getElementById('descricao').value == "") {
 
@@ -114,6 +128,8 @@ const exibirTarefa = function (titulo, descricao) {
     const checkbox = document.createElement('input')
     const spanCheckbox = document.createElement('span')
     const label = document.createElement('label')
+    const divEsquerda = document.createElement('div')
+    const btnRemover = document.createElement("button")
 
     // Colocando tipo "checkbox" e adicionando classe no input "checkbox"
     checkbox.type = 'checkbox';
@@ -126,13 +142,18 @@ const exibirTarefa = function (titulo, descricao) {
     // Exibindo título da tarefa
     divTitulo.textContent = titulo
 
+
+    btnRemover.textContent = "Deletar"
+
     // Organizando HTML
     lista.appendChild(li)
     li.appendChild(divTarefa)
-    divTarefa.appendChild(divTitulo)
-    divTarefa.appendChild(label)
+    divTarefa.appendChild(divEsquerda)
+    divEsquerda.appendChild(label)
     label.appendChild(checkbox)
     label.appendChild(spanCheckbox)
+    divEsquerda.appendChild(divTitulo)
+    divTarefa.appendChild(btnRemover)
 
 }
 
@@ -150,6 +171,10 @@ const removerTarefa = function () {
 
 }
 
+
+
+
+
 // Função para tirar a borda vermelha
 document.getElementById('titulo').addEventListener('click', function () {
     document.getElementById('titulo').style.border = "none";
@@ -157,4 +182,5 @@ document.getElementById('titulo').addEventListener('click', function () {
 
 document.getElementById('addButton').addEventListener('click', criarTarefa);
 
-atualizarSite()
+
+atualizarSite();
