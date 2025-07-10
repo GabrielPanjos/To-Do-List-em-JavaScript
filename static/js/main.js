@@ -111,7 +111,7 @@ const adicionarTarefa = function (titulo, descricao = "") {
 }
 
 // Função para a exibição da tarefa
-const exibirTarefa = function (titulo, descricao) {
+const exibirTarefa = function (titulo, descricao, concluido = false) {
 
     // Criando variaveis para exibir a tarefa no front-end
     const lista = document.querySelector('ul')
@@ -127,6 +127,31 @@ const exibirTarefa = function (titulo, descricao) {
     // Colocando tipo "checkbox" e adicionando classe no input "checkbox"
     checkbox.type = 'checkbox';
     spanCheckbox.classList.add('checkbox')
+    checkbox.checked = concluido;
+
+    if (concluido) {
+        divTitulo.style.textDecoration = "line-through";
+    } else {
+        divTitulo.style.textDecoration = "none";
+    }
+
+    checkbox.addEventListener('change', function () {
+
+        // Descobrindo index do botão que foi clicado
+        const tarefaIndex = tarefas.findIndex(t => t.titulo === titulo);
+
+        // Caso encontrar index
+        if (tarefaIndex !== -1) {
+
+            tarefas[tarefaIndex].concluido = this.checked; // true ou false
+            // Salva no localStorage
+            localStorage.setItem("tarefas", JSON.stringify(tarefas));
+
+
+            // Atualiza visual
+            atualizarSite();
+        }
+    });
 
     // Adicionando classe para label e divTarefa
     label.classList.add('checkbox-wrapper')
@@ -134,7 +159,7 @@ const exibirTarefa = function (titulo, descricao) {
 
     // Exibindo título da tarefa
     divTitulo.textContent = titulo
-
+    divTitulo.id = "div" + titulo
 
     btnRemover.textContent = "Deletar"
     btnRemover.id = titulo
@@ -158,13 +183,14 @@ const atualizarSite = function () {
     document.querySelector('ul').innerHTML = ""
 
     tarefas.forEach(tarefa => {
-        exibirTarefa(tarefa.titulo, tarefa.descricao)
+        exibirTarefa(tarefa.titulo, tarefa.descricao, tarefa.concluido)
     })
 
     localStorage.setItem("tarefas", JSON.stringify(tarefas));
 
 }
 
+// Função para remover tarefa
 const removerTarefa = function (index) {
     Swal.fire({
         title: 'Tem certeza?',
